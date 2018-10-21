@@ -52,7 +52,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="SampleOpModeLinear", group="Linear Opmode")
-@Disabled
+//@Disabled
 public class SampleOpModeLinear extends LinearOpMode {
 
     // Declare OpMode members.

@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @Autonomous(name="SampleOpModeLinear", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class Forward extends LinearOpMode {
 
     // Declare OpMode members.
