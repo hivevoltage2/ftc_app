@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -51,9 +52,9 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="SampleOpModeLinear", group="Linear Opmode")
-@Disabled
-public class SampleOpModeLinear extends LinearOpMode {
+@Autonomous(name="TestAuto", group="Linear Opmode")
+//@Disabled
+public class SampleOpModeLinearAuto extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -65,43 +66,27 @@ public class SampleOpModeLinear extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        //frontLeft  = hardwareMap.get(DcMotor.class, "front Left");
-        //frontRight = hardwareMap.get(DcMotor.class, "front Right");
+        double power = 2.0;
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
 
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        //frontLeft.setDirection(DcMotor.Direction.FORWARD);
-        //frontRight.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setPower(power);
+        frontRight.setPower(power);
 
-        // Wait for the game to start (driver presses PLAY)
+        sleep(2000);
+
+        power = 0.0;
+
         waitForStart();
         runtime.reset();
 
-        // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
             double leftPower;
             double rightPower;
 
-
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-
-            // Tank Mode uses one stick to control each wheel.
-            // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            // leftPower  = -gamepad1.left_stick_y ;
-            // rightPower = -gamepad1.right_stick_y ;
-
-            //frontLeft.setPower(leftPower);
-            //frontRight.setPower(rightPower);
-
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            //telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
             telemetry.update();
         }
     }
