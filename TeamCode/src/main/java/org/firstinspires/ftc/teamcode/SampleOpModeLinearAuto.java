@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@Autonomous(name="Auto", group="Linear Opmode")
+@Autonomous(name="Autonomous", group="Linear Opmode")
 //@Disabled
 public class SampleOpModeLinearAuto extends LinearOpMode {
 

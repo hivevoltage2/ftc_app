@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Tele", group="Linear Opmode")
+@TeleOp(name="TeleOp", group="Linear Opmode")
 //Disabled
 public class SampleOpModeLinear extends LinearOpMode {
 
@@ -64,7 +64,7 @@ public class SampleOpModeLinear extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Georgiy", "Initiliazied");
         telemetry.update();
 
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -85,7 +85,7 @@ public class SampleOpModeLinear extends LinearOpMode {
             double leftPower;
             double rightPower;
 
-            leftPower  = -gamepad1.left_stick_y;
+            leftPower  = -gamepad1.left_stick_y
             rightPower = -gamepad1.right_stick_y;
 
             frontLeft.setPower(leftPower);
