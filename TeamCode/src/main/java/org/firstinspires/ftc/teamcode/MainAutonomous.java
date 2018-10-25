@@ -1,17 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-@Autonomous(name="Autonomous", group="Linear Opmode")
+@Autonomous(name="MainAutonomous", group="Linear Opmode")
 //@Disabled
-public class SampleOpModeLinearAuto extends LinearOpMode {
+public class MainAutonomous extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor frontLeft;
@@ -19,7 +15,7 @@ public class SampleOpModeLinearAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Succ", "Dicc");
+        telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         double power = 2.0;

@@ -29,28 +29,57 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="TeleOp", group="Linear Opmode")
+@TeleOp(name="MainTeleOp", group="Linear Opmode")
 //Disabled
-public class SampleOpModeLinear extends LinearOpMode {
+public class MainTeleOp extends LinearOpMode {
 
-    // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
 
+    double leftPower;
+    double rightPower;
+
+    double drive;
+    double turn;
+
     @Override
     public void runOpMode() {
         telemetry.addData("Georgiy", "Initiliazied");
+
+        if(frontLeft.isBusy()){
+            telemetry.addData("frontLeft", "Active");
+        }else{
+            telemetry.addData("frontLeft", "Offline");
+        }
+
+        if(frontRight.isBusy()){
+            telemetry.addData("frontRight", "Active");
+        }else{
+            telemetry.addData("frontRight", "Offline");
+        }
+
+        if(backLeft.isBusy()){
+            telemetry.addData("backLeft", "Active");
+        }else{
+            telemetry.addData("backLeft", "Offline");
+        }
+
+        if(backRight.isBusy()){
+            telemetry.addData("backRight", "Active");
+        }else{
+            telemetry.addData("backRight", "Offline");
+        }
+
         telemetry.update();
 
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -68,11 +97,19 @@ public class SampleOpModeLinear extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            double leftPower;
-            double rightPower;
 
-            leftPower  = -gamepad1.left_stick_y;
-            rightPower = -gamepad1.right_stick_y;
+        /* Interesting lines, we might find useful in the future
+        double drive = -gamepad1.left_stick_y;
+        double turn  =  gamepad1.right_stick_x;
+        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+        */
+
+            drive = -gamepad1.right_stick_y;
+            turn  =  gamepad1.right_stick_x;
+
+            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
             frontLeft.setPower(leftPower);
             frontRight.setPower(rightPower);
