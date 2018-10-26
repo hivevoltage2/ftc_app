@@ -80,7 +80,10 @@ public class SampleOpModeLinear extends LinearOpMode {
             backRight.setPower(rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("Front Left (%.2f)", leftPower);
+            telemetry.addData("Back Left (%.2f)", leftPower);
+            telemetry.addData("Front Right (%.2f)", rightPower);
+            telemetry.addData("Back Right (%.2f)", rightPower);
             telemetry.update();
         }
     }
