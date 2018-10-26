@@ -32,11 +32,12 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="MainTeleOp", group="Linear Opmode")
-//Disabled
+//@Disabled
 public class MainTeleOp extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -45,76 +46,86 @@ public class MainTeleOp extends LinearOpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
+    private DcMotor arm;
+    private DcMotor slide1;
+    private DcMotor slide2
+    private DcMotor lift;
 
     double leftPower;
     double rightPower;
+    double armPower;
+    double slide1Power;
+    double slide2Power;
+    double liftPower;
 
     double drive;
     double turn;
 
     @Override
     public void runOpMode() {
-        telemetry.addData("Georgiy", "Initiliazied");
-
-        if(frontLeft.isBusy()){
-            telemetry.addData("frontLeft", "Active");
-        }else{
-            telemetry.addData("frontLeft", "Offline");
-        }
-
-        if(frontRight.isBusy()){
-            telemetry.addData("frontRight", "Active");
-        }else{
-            telemetry.addData("frontRight", "Offline");
-        }
-
-        if(backLeft.isBusy()){
-            telemetry.addData("backLeft", "Active");
-        }else{
-            telemetry.addData("backLeft", "Offline");
-        }
-
-        if(backRight.isBusy()){
-            telemetry.addData("backRight", "Active");
-        }else{
-            telemetry.addData("backRight", "Offline");
-        }
-
+        telemetry.addData("Status", "Initiliazied");
         telemetry.update();
 
         frontLeft  = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
+        slide1 = hardwareMap.get(DcMotor.class, "slide1");
+        slide2 = hardwareMap.get(DcMotor.class, "slide2");
+        arm = hardwareMap.get(DcMotor.class, "arm");
+
+        if(frontLeft.isBusy()) {
+            telemetry.addLine("frontLeft: Active");
+        }else{
+            telemetry.addLine("frontLeft: Offline");
+        }
+
+        if(frontRight.isBusy()) {
+            telemetry.addLine("frontRight: Active");
+        }else{
+            telemetry.addLine("frontRight: Offline");
+        }
+
+        if(backLeft.isBusy()) {
+            telemetry.addLine("backLeft: Active");
+        }else{
+            telemetry.addLine("backLeft: Offline");
+        }
+
+        if(backRight.isBusy()) {
+            telemetry.addLine("backRight: Active");
+        }else{
+            telemetry.addLine("backRight: Offline");
+        }
+
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
+        arm.setDirection(DcMotor.Direction.FORWARD);
+        slide1.setDirection(DcMotor.Direction.FORWARD);
+        slide2.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
         runtime.reset();
 
         while (opModeIsActive()) {
 
+            double drive = -gamepad1.left_stick_y;
+            double turn = -gamepad1.right_stick_x;
 
-        /* Interesting lines, we might find useful in the future
-        double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-        */
+            leftPower = Range.clip(drive + turn, -1.0, 1.0);
+            leftPower = Range.clip(drive + turn, -1.0, 1.0);
 
-            drive = -gamepad1.right_stick_y;
-            turn  =  gamepad1.right_stick_x;
-
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            armPower  = gamepad1.right_trigger;
+            armPower = -gamepad1.left_trigger;
 
             frontLeft.setPower(leftPower);
             frontRight.setPower(rightPower);
             backLeft.setPower(leftPower);
             backRight.setPower(rightPower);
+            arm.setPower(armPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
