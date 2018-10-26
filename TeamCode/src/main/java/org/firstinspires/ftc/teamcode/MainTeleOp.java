@@ -48,7 +48,7 @@ public class MainTeleOp extends LinearOpMode {
     private DcMotor backRight;
     private DcMotor arm;
     private DcMotor slide1;
-    private DcMotor slide2
+    private DcMotor slide2;
     private DcMotor lift;
 
     double leftPower;
@@ -115,11 +115,11 @@ public class MainTeleOp extends LinearOpMode {
             double drive = -gamepad1.left_stick_y;
             double turn = -gamepad1.right_stick_x;
 
-            leftPower = Range.clip(drive + turn, -1.0, 1.0);
-            leftPower = Range.clip(drive + turn, -1.0, 1.0);
-
             armPower  = gamepad1.right_trigger;
             armPower = -gamepad1.left_trigger;
+
+            leftPower = Range.clip(drive + turn, -1.0, 1.0);
+            leftPower = Range.clip(drive + turn, -1.0, 1.0);
 
             frontLeft.setPower(leftPower);
             frontRight.setPower(rightPower);
