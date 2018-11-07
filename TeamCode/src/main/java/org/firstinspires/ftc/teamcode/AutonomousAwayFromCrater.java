@@ -111,7 +111,7 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         driveForward(DEFAULT_POWER, 2200);
         //putToken();
         turnRight(DEFAULT_POWER, 2000);
-        driveForward(0.9, 1850);
+        driveForward(1.0, 1850);
 
         waitForStart();
         runtime.reset();
