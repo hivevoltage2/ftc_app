@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="MainTeleOp", group="Linear OpMode")
+@TeleOp(name="TeleOp", group="Linear OpMode")
 //@Disabled
 public class MainTeleOp extends LinearOpMode {
 
@@ -22,17 +22,15 @@ public class MainTeleOp extends LinearOpMode {
 
     //Here I have initialized motors that we are going to use in the future.
     //The naming is temporary, we are probably gonna change how we call them
-    private DcMotor slide1;
-    private DcMotor slide2;
+    private DcMotor rake;
     private DcMotor lift;
 
     double leftPower;
     double rightPower;
     double armPower;
 
-    //Power values of slide1, slide2, and lift. The naming is temporary, we are probably gonna change how we call them
-    double slide1Power;
-    double slide2Power;
+    //we are probably gonna change how we call them
+    double rakePower;
     double liftPower;
 
     //Power values that will determine in what direction the robot is gonna go. Everything is explained below
@@ -54,8 +52,7 @@ public class MainTeleOp extends LinearOpMode {
         backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         arm = hardwareMap.get(DcMotor.class, "arm");
-        //slide1 = hardwareMap.get(DcMotor.class, "slide1");
-        //slide2 = hardwareMap.get(DcMotor.class, "slide2");
+        //rake = hardwareMap.get(DcMotor.class, "rake");
         //lift = hardwareMap.get(DcMotor.class, "lift");
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -63,8 +60,7 @@ public class MainTeleOp extends LinearOpMode {
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         arm.setDirection(DcMotor.Direction.FORWARD);
-        //slide1.setDirection(DcMotor.Direction.FORWARD);
-        //slide2.setDirection(DcMotor.Direction.FORWARD);
+        //rake.setDirection(DcMotor.Direction.FORWARD);
         //lift.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
@@ -81,20 +77,33 @@ public class MainTeleOp extends LinearOpMode {
             xDirection = -gamepad1.right_stick_x;
             leftPower = Range.clip(yDirection - xDirection, -1.0, 1.0);
             rightPower = Range.clip(yDirection + xDirection, -1.0, 1.0);
+            armPower = -gamepad1.left_stick_y;
+            if(gamepad1.b) {
+                rakePower = 1;
+            }else if(gamepad1.x){
+                rakePower = -1;
+            }else{
+                rakePower = 0;
+            }
+
+            if(gamepad1.dpad_down){
+                liftPower = 1;
+            }else if(gamepad1.dpad_up){
+                liftPower = -1;
+            }
 
             //Here, we say that whenever user presses the right trigger, give extraPower the max value (1.0)
             extraPower = gamepad1.right_trigger;
-            armPower = -gamepad1.left_stick_y;
 
             //In these series of control statements we tone down the power of the motors by half (*0.5)
             //and then add the value of extraPower (0 or 1, depending on the user's actions with the right trigger.
             //In this case we add extraPower to the leftPower value
             if(leftPower > 0){
-                backLeft.setPower(0.5*leftPower + 0.5*extraPower);
-                frontLeft.setPower(0.5*leftPower + 0.5*extraPower);
+                backLeft.setPower(leftPower - 0.5*extraPower);
+                frontLeft.setPower(leftPower - 0.5*extraPower);
             }else if(leftPower < 0){
-                backLeft.setPower(0.5*leftPower - 0.5*extraPower);
-                frontLeft.setPower(0.5*leftPower - 0.5*extraPower);
+                backLeft.setPower(leftPower + 0.5*extraPower);
+                frontLeft.setPower(leftPower + 0.5*extraPower);
             }else{
                 backLeft.setPower(0);
                 frontLeft.setPower(0);
@@ -102,17 +111,19 @@ public class MainTeleOp extends LinearOpMode {
 
             //In this case we add extraPower to the rightPower value
             if(rightPower > 0){
-                frontRight.setPower(0.5*rightPower + 0.5*extraPower);
-                backRight.setPower(0.5*rightPower + 0.5*extraPower);
+                frontRight.setPower(rightPower - 0.5*extraPower);
+                backRight.setPower(rightPower - 0.5*extraPower);
             }else if(rightPower < 0){
-                frontRight.setPower(0.5*rightPower - 0.5*extraPower);
-                backRight.setPower(0.5*rightPower - 0.5*extraPower);
+                frontRight.setPower(rightPower + 0.5*extraPower);
+                backRight.setPower(rightPower + 0.5*extraPower);
             }else{
                 frontRight.setPower(0);
                 backRight.setPower(0);
             }
 
             arm.setPower(armPower);
+            //rake.setPower(rakePower);
+            //lift.setPower(liftPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
