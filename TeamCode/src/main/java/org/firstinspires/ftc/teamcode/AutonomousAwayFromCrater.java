@@ -74,12 +74,12 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         sleep(800);
     }
 
-//    public void putToken() {
-//        rake.setPower(1);
-//        sleep(1000);
-//        rake.setPower(0);
-//        sleep(800);
-//    }
+   public void putToken() {
+        rake.setPower(DEFAULT_POWER);
+        sleep(1000);
+        rake.setPower(0);
+        sleep(800);
+    }
 
 //    public void landRobot(){
 //        lift.setPower(1);
@@ -109,7 +109,7 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
 
         //landRobot();
         driveForward(DEFAULT_POWER, 2200);
-        //putToken();
+        putToken();
         turnRight(DEFAULT_POWER, 2000);
         driveForward(1.0, 1850);
 

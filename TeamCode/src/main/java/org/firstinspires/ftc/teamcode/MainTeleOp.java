@@ -18,18 +18,15 @@ public class MainTeleOp extends LinearOpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private DcMotor arm;
-
-    //Here I have initialized motors that we are going to use in the future.
-    //The naming is temporary, we are probably gonna change how we call them
     private DcMotor rake;
+    private DcMotor arm;
     private DcMotor lift;
 
     double leftPower;
     double rightPower;
     double armPower;
 
-    //we are probably gonna change how we call them
+    //We are probably gonna change how we call them
     double rakePower;
     double liftPower;
 
@@ -52,7 +49,7 @@ public class MainTeleOp extends LinearOpMode {
         backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         arm = hardwareMap.get(DcMotor.class, "arm");
-        //rake = hardwareMap.get(DcMotor.class, "rake");
+        rake = hardwareMap.get(DcMotor.class, "rake");
         //lift = hardwareMap.get(DcMotor.class, "lift");
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -60,7 +57,7 @@ public class MainTeleOp extends LinearOpMode {
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         arm.setDirection(DcMotor.Direction.FORWARD);
-        //rake.setDirection(DcMotor.Direction.FORWARD);
+        rake.setDirection(DcMotor.Direction.FORWARD);
         //lift.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
@@ -122,7 +119,7 @@ public class MainTeleOp extends LinearOpMode {
             }
 
             arm.setPower(armPower);
-            //rake.setPower(rakePower);
+            rake.setPower(rakePower);
             //lift.setPower(liftPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());

@@ -74,12 +74,12 @@ public class AutonomousNearCrater extends LinearOpMode {
         sleep(800);
     }
 
-//    public void putToken() {
-//        rake.setPower(1);
-//        sleep(1000);
-//        rake.setPower(0);
-//        sleep(800);
-//    }
+    public void putToken() {
+        rake.setPower(1);
+        sleep(1000);
+        rake.setPower(0);
+        sleep(800);
+    }
 
 //    public void landRobot(){
 //        lift.setPower(1);
@@ -97,6 +97,7 @@ public class AutonomousNearCrater extends LinearOpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
+        rake = hardwareMap.get(DcMotor.class, "rake");
         arm = hardwareMap.get(DcMotor.class, "arm");
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
@@ -104,7 +105,7 @@ public class AutonomousNearCrater extends LinearOpMode {
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         arm.setDirection(DcMotor.Direction.FORWARD);
-        //rake.setDirection(DcMotor.Direction.FORWARD);
+        rake.setDirection(DcMotor.Direction.FORWARD);
         //lift.setDirection(DcMotor.Direction.FORWARD);
 
         //landRobot();
@@ -113,7 +114,7 @@ public class AutonomousNearCrater extends LinearOpMode {
         driveForward(DEFAULT_POWER, 1000);
         turnLeft(DEFAULT_POWER, 1000);
         driveForward(DEFAULT_POWER, 2300);
-        //putToken();
+        putToken();
         driveBackward(1.0, 1550);
 
         waitForStart();
