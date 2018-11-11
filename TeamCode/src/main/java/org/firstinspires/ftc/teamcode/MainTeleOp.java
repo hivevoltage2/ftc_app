@@ -116,11 +116,11 @@ public class MainTeleOp extends LinearOpMode {
             //In these series of control statements we tone down the power of the motors by half (*0.5) and then add the value of extraPower (0 or 1, depending on the user's actions with the right trigger.
             //In this case we add extraPower to the leftPower value
             if(leftPower > 0){
-                backLeft.setPower(0.5*leftPower + 0.5*extraPower);
-                frontLeft.setPower(0.5*leftPower + 0.5*extraPower);
+                backLeft.setPower(leftPower - 0.7*extraPower);
+                frontLeft.setPower(leftPower - 0.7*extraPower);
             }else if(leftPower < 0){
-                backLeft.setPower(0.5*leftPower - 0.5*extraPower);
-                frontLeft.setPower(0.5*leftPower - 0.5*extraPower);
+                backLeft.setPower(leftPower + 0.7*extraPower);
+                frontLeft.setPower(leftPower + 0.7*extraPower);
             }else{
                 backLeft.setPower(0);
                 frontLeft.setPower(0);
@@ -128,11 +128,11 @@ public class MainTeleOp extends LinearOpMode {
 
             //In this case we add extraPower to the rightPower value
             if(rightPower > 0){
-                frontRight.setPower(0.5*rightPower + 0.5*extraPower);
-                backRight.setPower(0.5*rightPower + 0.5*extraPower);
+                frontRight.setPower(rightPower - 0.7*extraPower);
+                backRight.setPower(rightPower - 0.7*extraPower);
             }else if(rightPower < 0){
-                frontRight.setPower(0.5*rightPower - 0.5*extraPower);
-                backRight.setPower(0.5*rightPower - 0.5*extraPower);
+                frontRight.setPower(rightPower + 0.7*extraPower);
+                backRight.setPower(rightPower +  0.7*extraPower);
             }else{
                 frontRight.setPower(0);
                 backRight.setPower(0);
