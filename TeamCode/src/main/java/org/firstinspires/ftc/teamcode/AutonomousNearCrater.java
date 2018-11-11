@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="AutonomousNearCrater", group="Linear Opmode")
+@Autonomous(name="AutoNearCrater", group="Linear Opmode")
 //@Disabled
 public class AutonomousNearCrater extends LinearOpMode {
 
@@ -108,14 +108,17 @@ public class AutonomousNearCrater extends LinearOpMode {
         rake.setDirection(DcMotor.Direction.FORWARD);
         //lift.setDirection(DcMotor.Direction.FORWARD);
 
+////////////
+//      Below is the sequence of instructions I was talking about.
         //landRobot();
         driveForward(DEFAULT_POWER, 1000);
-        turnLeft(DEFAULT_POWER, 1500);
+        turnLeft(DEFAULT_POWER, );
         driveForward(DEFAULT_POWER, 1000);
         turnLeft(DEFAULT_POWER, 1000);
         driveForward(DEFAULT_POWER, 2300);
         putToken();
         driveBackward(1.0, 1550);
+///////////
 
         waitForStart();
         runtime.reset();
