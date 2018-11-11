@@ -32,7 +32,6 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         frontRight.setPower(0);
         backRight.setPower(0);
         sleep(800);
-
     }
 
     public void turnRight(double power, int milliseconds){
@@ -111,7 +110,7 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         driveForward(DEFAULT_POWER, 2200);
         putToken();
         turnRight(DEFAULT_POWER, 2000);
-        driveForward(1.0, 1850);
+        driveForward(1.0, 1850);zs
 
         waitForStart();
         runtime.reset();
