@@ -98,6 +98,11 @@ public class MainTeleOp extends LinearOpMode {
 //            with the right trigger.
 //            In this case we add extraPower to the leftPower value
             if(leftPower > 0){
+                backLeft.setPower(leftPower - 0.7*extraPower);
+                frontLeft.setPower(leftPower - 0.7*extraPower);
+            }else if(leftPower < 0){
+                backLeft.setPower(leftPower + 0.7*extraPower);
+                frontLeft.setPower(leftPower + 0.7*extraPower);
                 backLeft.setPower(leftPower - 0.5*extraPower);
                 frontLeft.setPower(leftPower - 0.5*extraPower);
             }else if(leftPower < 0){
@@ -110,6 +115,11 @@ public class MainTeleOp extends LinearOpMode {
 
 //            In this case we add extraPower to the rightPower value
             if(rightPower > 0){
+                frontRight.setPower(rightPower - 0.7*extraPower);
+                backRight.setPower(rightPower - 0.7*extraPower);
+            }else if(rightPower < 0){
+                frontRight.setPower(rightPower + 0.7*extraPower);
+                backRight.setPower(rightPower +  0.7*extraPower);
                 frontRight.setPower(rightPower - 0.5*extraPower);
                 backRight.setPower(rightPower - 0.5*extraPower);
             }else if(rightPower < 0){
