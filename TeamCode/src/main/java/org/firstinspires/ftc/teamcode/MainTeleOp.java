@@ -1,6 +1,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -20,6 +21,7 @@ public class MainTeleOp extends LinearOpMode {
     private DcMotor backRight;
     private DcMotor rake;
     private DcMotor arm;
+    private DcMotor hook;
     private DcMotor lift;
 
     double leftPower;
@@ -50,7 +52,8 @@ public class MainTeleOp extends LinearOpMode {
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         arm = hardwareMap.get(DcMotor.class, "arm");
         rake = hardwareMap.get(DcMotor.class, "rake");
-//        lift = hardwareMap.get(DcMotor.class, "lift");
+        lift = hardwareMap.get(DcMotor.class, "lift");
+        hook = hardwareMap.dcMotor.get("hook");
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -58,7 +61,8 @@ public class MainTeleOp extends LinearOpMode {
         backRight.setDirection(DcMotor.Direction.REVERSE);
         arm.setDirection(DcMotor.Direction.FORWARD);
         rake.setDirection(DcMotor.Direction.FORWARD);
-//        lift.setDirection(DcMotor.Direction.FORWARD);
+        lift.setDirection(DcMotor.Direction.FORWARD);
+        hook.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
         runtime.reset();
@@ -90,6 +94,20 @@ public class MainTeleOp extends LinearOpMode {
                 liftPower = -1;
             }
 
+            if(gamepad1.right_bumper){
+                lift.setPower(1);
+            }else if(gamepad1.left_bumper){
+                lift.setPower(-1);
+            }
+
+            if(gamepad1.y){
+                hook.setPower(0.2);
+            }else if(gamepad1.a){
+                hook.setPower(-0.2);
+            }else {
+                hook.setPower(0);
+            }
+
 //          Here, we say that whenever user presses the right trigger, give extraPower the max value (1.0)
             extraPower = gamepad1.right_trigger;
 
@@ -98,11 +116,6 @@ public class MainTeleOp extends LinearOpMode {
 //            with the right trigger.
 //            In this case we add extraPower to the leftPower value
             if(leftPower > 0){
-                backLeft.setPower(leftPower - 0.7*extraPower);
-                frontLeft.setPower(leftPower - 0.7*extraPower);
-            }else if(leftPower < 0){
-                backLeft.setPower(leftPower + 0.7*extraPower);
-                frontLeft.setPower(leftPower + 0.7*extraPower);
                 backLeft.setPower(leftPower - 0.5*extraPower);
                 frontLeft.setPower(leftPower - 0.5*extraPower);
             }else if(leftPower < 0){
@@ -115,16 +128,11 @@ public class MainTeleOp extends LinearOpMode {
 
 //            In this case we add extraPower to the rightPower value
             if(rightPower > 0){
-                frontRight.setPower(rightPower - 0.7*extraPower);
-                backRight.setPower(rightPower - 0.7*extraPower);
-            }else if(rightPower < 0){
-                frontRight.setPower(rightPower + 0.7*extraPower);
-                backRight.setPower(rightPower +  0.7*extraPower);
                 frontRight.setPower(rightPower - 0.5*extraPower);
                 backRight.setPower(rightPower - 0.5*extraPower);
             }else if(rightPower < 0){
                 frontRight.setPower(rightPower + 0.5*extraPower);
-                backRight.setPower(rightPower + 0.5*extraPower);
+                backRight.setPower(rightPower +  0.5*extraPower);
             }else{
                 frontRight.setPower(0);
                 backRight.setPower(0);
@@ -132,7 +140,7 @@ public class MainTeleOp extends LinearOpMode {
 
             arm.setPower(armPower);
             rake.setPower(rakePower);
-//            lift.setPower(liftPower);
+            lift.setPower(liftPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);

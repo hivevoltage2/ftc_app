@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="AutoAwayFromCrater", group="Linear Opmode")
@@ -18,6 +19,7 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
     private DcMotor arm;
     private DcMotor rake;
     private DcMotor lift;
+    private DcMotor hook;
 
     final double DEFAULT_POWER = 0.5;
 
@@ -91,18 +93,37 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
     }
 
    public void putToken() {
-        rake.setPower(DEFAULT_POWER);
+        rake.setPower(-1);
         sleep(1000);
         rake.setPower(0);
         sleep(800);
     }
 
-//       public void landRobot(){
-//            lift.setPower(1);
-//     sleep(2000);
-//     lift.setPower(0);
-//     sleep(1000);
-//    }
+    public void landRobot(){
+        sleep(500);
+        lift.setPower(-1);
+        sleep(2500);
+        lift.setPower(0);
+        sleep(1000);
+        hook.setPower(-0.2);
+        sleep(1000);
+        hook.setPower(0);
+        sleep(500);
+    }
+
+    public void moveArm(boolean back){
+        if(back){
+            arm.setPower(1);
+            sleep(1500);
+            arm.setPower(0);
+            sleep(800);
+        }else{
+            arm.setPower(-1);
+            sleep(1500);
+            arm.setPower(0);
+            sleep(800);
+        }
+    }
 
 //    As you may have noticed, in the runOpMode, we are not using the while (opModeIsActive()) loop
 //    Since we are using a sequence of instructions to guide the robot's movement, we don't need this loop
@@ -119,6 +140,9 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         backLeft  = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         arm = hardwareMap.get(DcMotor.class, "arm");
+        rake = hardwareMap.get(DcMotor.class, "rake");
+        lift = hardwareMap.get(DcMotor.class, "lift");
+        hook = hardwareMap.get(DcMotor.class, "hook");
 
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -126,18 +150,21 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         backRight.setDirection(DcMotor.Direction.REVERSE);
         arm.setDirection(DcMotor.Direction.FORWARD);
         rake.setDirection(DcMotor.Direction.FORWARD);
-//        lift.setDirection(DcMotor.Direction.FORWARD);
-
-////////////
-//      Below is the sequence of instructions I was talking about.
-//      landRobot();
-        driveForward(DEFAULT_POWER, 2200);
-        putToken();
-        turnRight(DEFAULT_POWER, 2000);
-        driveForward(1.0, 1850);
-////////////
+        lift.setDirection(DcMotor.Direction.FORWARD);
+        hook.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
+////////////
+//      Below is the sequence of instructions I was talking about.
+            landRobot();
+            driveForward(DEFAULT_POWER, 800);
+            moveArm(true);
+            putToken();
+            moveArm(false);
+            turnRight(DEFAULT_POWER, 2000);
+            driveForward(1.0, 2050);
+////////////
+
         runtime.reset();
     }
 }
