@@ -50,7 +50,6 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         frontRight.setPower(0);
         backRight.setPower(0);
         sleep(800);
-
     }
 
     public void turnRight(double power, int milliseconds){
@@ -147,7 +146,7 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
+            backRight.setDirection(DcMotor.Direction.REVERSE);
         arm.setDirection(DcMotor.Direction.FORWARD);
         rake.setDirection(DcMotor.Direction.FORWARD);
         lift.setDirection(DcMotor.Direction.FORWARD);
@@ -156,6 +155,7 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         waitForStart();
 ////////////
 //      Below is the sequence of instructions I was talking about.
+<<<<<<< HEAD
             landRobot();
             driveForward(DEFAULT_POWER, 800);
             moveArm(true);
@@ -163,7 +163,18 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
             moveArm(false);
             turnRight(DEFAULT_POWER, 2000);
             driveForward(1.0, 2050);
+=======
+//      landRobot();
+        driveForward(DEFAULT_POWER, 2200);
+        putToken();
+        turnRight(DEFAULT_POWER, 2000);
+<<<<<<< .merge_file_a06700
+        driveForward(1.0, 1850);
+=======
+        driveForward(1.0, 1850);
+>>>>>>> 41cc0167f1b0ce44725d7b16914d571525a2f4f9
 ////////////
+>>>>>>> .merge_file_a08256
 
         runtime.reset();
     }
