@@ -19,17 +19,9 @@ public class Copycat extends LinearOpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private DcMotor rake;
-    private DcMotor arm;
-    private DcMotor hook;
-    private DcMotor lift;
 
     double leftPower;
     double rightPower;
-    double armPower;
-
-    double rakePower;
-    double liftPower;
 
     double yDirection;
     double xDirection;
@@ -48,10 +40,6 @@ public class Copycat extends LinearOpMode {
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
-        arm.setDirection(DcMotor.Direction.FORWARD);
-        rake.setDirection(DcMotor.Direction.FORWARD);
-        lift.setDirection(DcMotor.Direction.FORWARD);
-        hook.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
         runtime.reset();
@@ -61,7 +49,7 @@ public class Copycat extends LinearOpMode {
             xDirection = -gamepad1.right_stick_x;
             leftPower = Range.clip(yDirection - xDirection, -1.0, 1.0);
             rightPower = Range.clip(yDirection + xDirection, -1.0, 1.0);
-            armPower = -gamepad1.left_stick_y;
+
             if(gamepad1.b) {
                 rakePower = 1;
             }else if(gamepad1.x){
@@ -69,26 +57,26 @@ public class Copycat extends LinearOpMode {
             }else{
                 rakePower = 0;
             }
-
-            if(gamepad1.dpad_down){
-                liftPower = 1;
-            }else if(gamepad1.dpad_up){
-                liftPower = -1;
-            }
-
-            if(gamepad1.right_bumper){
-                lift.setPower(1);
-            }else if(gamepad1.left_bumper){
-                lift.setPower(-1);
-            }
-
-            if(gamepad1.y){
-                hook.setPower(0.2);
-            }else if(gamepad1.a){
-                hook.setPower(-0.2);
-            }else {
-                hook.setPower(0);
-            }
+//
+//            if(gamepad1.dpad_down){
+//                liftPower = 1;
+//            }else if(gamepad1.dpad_up){
+//                liftPower = -1;
+//            }
+//
+//            if(gamepad1.right_bumper){
+//                lift.setPower(1);
+//            }else if(gamepad1.left_bumper){
+//                lift.setPower(-1);
+//            }
+//
+//            if(gamepad1.y){
+//                hook.setPower(0.2);
+//            }else if(gamepad1.a){
+//                hook.setPower(-0.2);
+//            }else {
+//                hook.setPower(0);
+//            }
 
             if(leftPower > 0){
                 backLeft.setPower(leftPower - 0.2);
@@ -111,10 +99,6 @@ public class Copycat extends LinearOpMode {
                 frontRight.setPower(0);
                 backRight.setPower(0);
             }
-
-            arm.setPower(armPower);
-            rake.setPower(rakePower);
-            lift.setPower(liftPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
