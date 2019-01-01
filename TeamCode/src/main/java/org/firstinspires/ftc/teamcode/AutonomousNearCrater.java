@@ -138,18 +138,16 @@ public class AutonomousNearCrater extends LinearOpMode {
         waitForStart();
 ////////////
 //      Below is the sequence of instructions I was talking about.
-<<<<<<< HEAD
         landRobot();
         driveForward(DEFAULT_POWER, 800);
         turnLeft(DEFAULT_POWER, 1500);
         driveForward(DEFAULT_POWER, 800);
 
-=======
         //landRobot();
         driveForward(DEFAULT_POWER, 1000);
         turnLeft(DEFAULT_POWER, );
         driveForward(DEFAULT_POWER, 1000);
->>>>>>> 41cc0167f1b0ce44725d7b16914d571525a2f4f9
+
         turnLeft(DEFAULT_POWER, 1000);
         driveForward(DEFAULT_POWER, 2300);
         moveArm();

@@ -23,28 +23,14 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
 
     final double DEFAULT_POWER = 0.5;
 
-//     Below, is set of methods for the robot to move forward, back, turn left, turn right,
-//     put the token, and land itself from the lander.
-//     As parameters, these methods take "power", which is the power with which the robot
-//     is going to perform a certain action, and "milliseconds", which represents the
-//     amount of time the user wants the robot
-//     to perform that certain action.
-//
-//     The sleep() method is what we are going to use to "put motors to sleep".
-//     After a certain amount of milliseconds (this method takes milliseconds as a parameter, not seconds)
-//     it shut downs some of the ongoing processes.
-//     I am not sure yet, which processes does shut down, but it definitely works for the motors.
-//     I am certain it has something to do with "Threads". It would be great if you could help
-//     figure out what does it do exactly.
     public void turnLeft(double power, int milliseconds){
+
         frontLeft.setPower(-power);
         backLeft.setPower(-power);
         frontRight.setPower(power);
         backRight.setPower(power);
         sleep(milliseconds);
-//         Since the motors doesn't stop working immediately after sleep() method,
-//         We have to wait for some time (0.8 seconds. It is longer than needed. Could be less)
-//         for every motor to stop working to prevent any inaccuracies.
+
         frontLeft.setPower(0);
         backLeft.setPower(0);
         frontRight.setPower(0);
@@ -155,7 +141,6 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
         waitForStart();
 ////////////
 //      Below is the sequence of instructions I was talking about.
-<<<<<<< HEAD
             landRobot();
             driveForward(DEFAULT_POWER, 800);
             moveArm(true);
@@ -163,18 +148,15 @@ public class AutonomousAwayFromCrater extends LinearOpMode {
             moveArm(false);
             turnRight(DEFAULT_POWER, 2000);
             driveForward(1.0, 2050);
-=======
 //      landRobot();
         driveForward(DEFAULT_POWER, 2200);
         putToken();
         turnRight(DEFAULT_POWER, 2000);
-<<<<<<< .merge_file_a06700
+
         driveForward(1.0, 1850);
-=======
         driveForward(1.0, 1850);
->>>>>>> 41cc0167f1b0ce44725d7b16914d571525a2f4f9
-////////////
->>>>>>> .merge_file_a08256
+
+///////////
 
         runtime.reset();
     }

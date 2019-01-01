@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Copycat", group="Linear OpMode")
+@TeleOp(name="CopycatTeleOp", group="Linear OpMode")
 //@Disabled
 public class Copycat extends LinearOpMode {
 
@@ -26,6 +26,8 @@ public class Copycat extends LinearOpMode {
     double yDirection;
     double xDirection;
 
+    double extraPower;
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initiliazied");
@@ -41,60 +43,35 @@ public class Copycat extends LinearOpMode {
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
 
+        Thread thread = new Thread();
+
         waitForStart();
         runtime.reset();
 
         while (opModeIsActive()) {
+
             yDirection = -gamepad1.right_stick_y;
             xDirection = -gamepad1.right_stick_x;
             leftPower = Range.clip(yDirection - xDirection, -1.0, 1.0);
             rightPower = Range.clip(yDirection + xDirection, -1.0, 1.0);
 
-            if(gamepad1.b) {
-                rakePower = 1;
-            }else if(gamepad1.x){
-                rakePower = -1;
-            }else{
-                rakePower = 0;
-            }
-//
-//            if(gamepad1.dpad_down){
-//                liftPower = 1;
-//            }else if(gamepad1.dpad_up){
-//                liftPower = -1;
-//            }
-//
-//            if(gamepad1.right_bumper){
-//                lift.setPower(1);
-//            }else if(gamepad1.left_bumper){
-//                lift.setPower(-1);
-//            }
-//
-//            if(gamepad1.y){
-//                hook.setPower(0.2);
-//            }else if(gamepad1.a){
-//                hook.setPower(-0.2);
-//            }else {
-//                hook.setPower(0);
-//            }
-
             if(leftPower > 0){
-                backLeft.setPower(leftPower - 0.2);
-                frontLeft.setPower(leftPower - 0.2);
+                backLeft.setPower(leftPower - 0.4);
+                frontLeft.setPower(leftPower - 0.4);
             }else if(leftPower < 0){
-                backLeft.setPower(leftPower + 0.2);
-                frontLeft.setPower(leftPower + 0.2);
+                backLeft.setPower(leftPower + 0.4);
+                frontLeft.setPower(leftPower + 0.4);
             }else{
                 backLeft.setPower(0);
                 frontLeft.setPower(0);
             }
-            
+
             if(rightPower > 0){
-                frontRight.setPower(rightPower - 0.2);
-                backRight.setPower(rightPower - 0.2);
+                frontRight.setPower(rightPower - 0.4);
+                backRight.setPower(rightPower - 0.4);
             }else if(rightPower < 0){
-                frontRight.setPower(rightPower + 0.2);
-                backRight.setPower(rightPower +  0.2);
+                frontRight.setPower(rightPower + 0.4);
+                backRight.setPower(rightPower +  0.4);
             }else{
                 frontRight.setPower(0);
                 backRight.setPower(0);
